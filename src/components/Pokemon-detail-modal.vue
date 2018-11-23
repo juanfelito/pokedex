@@ -11,9 +11,7 @@
           </div>
 
           <div class="modal-body">
-            <slot name="body">
-              default body {{hola}}
-            </slot>
+            <img v-bind:src="urlImagen" alt="">
           </div>
 
           <div class="modal-footer">
@@ -37,7 +35,8 @@ export default {
     return {
         hola: 'Hola'
     }
-  }
+  },
+  props: ['urlImagen']
 };
 </script>
 

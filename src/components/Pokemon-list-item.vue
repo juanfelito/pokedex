@@ -1,5 +1,5 @@
 <template>
-  <div class="pokemon-list-item">
+  <div class="pokemon-list-item" @click="emitir">
     <div class="pokemon-list-item__sprite">
       <img v-bind:src="urlImagen" alt="">
     </div>
@@ -28,6 +28,13 @@ export default {
     }
   },
   props: ['name', 'url'],
+  methods:{
+    emitir: function() {
+        this.$emit('update:id', this.id);
+        this.$emit('showModal');
+        this.$emit('update:urlImagen', this.urlImagen);
+    }
+  },
   created () {
     axios
         .get(this.url)
