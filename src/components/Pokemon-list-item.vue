@@ -11,44 +11,51 @@
 import axios from "axios";
 
 export default {
-  data () {
+  data() {
     return {
-        id: null,
-        urlImagen: '',
-        height: null,
-        types: [],
-        weight: null,
-        speciesUrl: '',
-        errors: []
+      id: null,
+      urlImagen: '',
+      height: null,
+      types: [],
+      weight: null,
+      speciesUrl: '',
+      errors: []
     }
   },
   filters:{
     iniciaConMayuscula: function(valor) {
-        return valor.charAt(0).toUpperCase() + valor.slice(1);
+      return valor.charAt(0).toUpperCase() + valor.slice(1);
     }
   },
-  props: ['name', 'url'],
-  methods:{
+  props: ["name", "url"],
+  methods: {
     emitir: function() {
-        this.$emit('update:id', this.id);
-        this.$emit('showModal');
-        this.$emit('update:urlImagen', this.urlImagen);
+      const pokemon = {
+        id: this.id,
+        urlImagen: this.urlImagen,
+        height: this.height,
+        weight: this.weight,
+        types: this.types,
+        speciesUrl: this.speciesUrl
+      }
+      this.$emit("update:pokemon", pokemon);
+      this.$emit("showModal");
     }
   },
-  created () {
+  created() {
     axios
-        .get(this.url)
-        .then(response => {
-            this.urlImagen = response.data.sprites.front_default;
-            this.id = response.data.id;
-            this.height = response.data.height;
-            this.weight = response.data.weight;
-            this.speciesUrl = response.data.species.url;
-            this.types = response.data.types;
-        })
-        .catch(e => {
-            this.errors.push(e);
-        });
+      .get(this.url)
+      .then(response => {
+        this.urlImagen = response.data.sprites.front_default;
+        this.id = response.data.id;
+        this.height = response.data.height;
+        this.weight = response.data.weight;
+        this.speciesUrl = response.data.species.url;
+        this.types = response.data.types;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
   }
 };
 </script>

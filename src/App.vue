@@ -11,7 +11,7 @@ import PokemonList from "./components/Pokemon-list";
 export default {
   name: "app",
   components: {
-    PokemonList,
+    PokemonList
   }
 };
 </script>

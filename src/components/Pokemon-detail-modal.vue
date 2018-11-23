@@ -11,7 +11,7 @@
           </div>
 
           <div class="modal-body">
-            <img v-bind:src="urlImagen" alt="">
+            <img v-bind:src="pokemon.urlImagen" alt="">
           </div>
 
           <div class="modal-footer">
@@ -29,14 +29,25 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
-  data () {
+  data() {
     return {
-        hola: 'Hola'
-    }
+      errors: []
+    };
   },
-  props: ['urlImagen']
+  props: ["pokemon"],
+  created() {
+    axios
+      .get(this.pokemon.speciesUrl)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  }
 };
 </script>
 
@@ -48,9 +59,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -64,8 +75,8 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
 
