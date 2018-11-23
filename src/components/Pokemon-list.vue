@@ -8,7 +8,7 @@
         you can use custom content here to overwrite
         default content
       -->
-      <h3 slot="header">{{selectedPokemon.id}}</h3>
+      <!-- <h3 slot="header">{{selectedPokemon.id}}</h3> -->
     </PokemonDetailModal>
   </div>
 </template>

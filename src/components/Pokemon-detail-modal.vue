@@ -6,17 +6,17 @@
 
           <div class="modal-header">
             <slot name="header">
-              default header
+              <img v-bind:src="pokemon.urlImagen" alt="">
             </slot>
           </div>
 
           <div class="modal-body">
-            <img v-bind:src="pokemon.urlImagen" alt="">
+            Height: {{pokemon.height}}
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              default footer
+              hola
               <button class="modal-default-button" @click="$emit('close')">
                 OK
               </button>
@@ -80,9 +80,8 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
+.modal-header {
   margin-top: 0;
-  color: #42b983;
 }
 
 .modal-body {
