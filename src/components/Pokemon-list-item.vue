@@ -1,7 +1,7 @@
 <template>
   <div class="pokemon-list-item">
     <div class="pokemon-list-item__sprite">
-        <img v-bind:src="urlImagen" alt="">
+      <img v-bind:src="urlImagen" alt="">
     </div>
     <div class="pokemon-list-item__name">{{name | iniciaConMayuscula}} #{{id}}</div>
   </div>
@@ -13,9 +13,12 @@ import axios from "axios";
 export default {
   data () {
     return {
-        greeting: 'Hello',
-        name: '',
+        id: null,
         urlImagen: '',
+        height: null,
+        types: [],
+        weight: null,
+        speciesUrl: '',
         errors: []
     }
   },
@@ -24,17 +27,21 @@ export default {
         return valor.charAt(0).toUpperCase() + valor.slice(1);
     }
   },
-  props: ['id'],
-  mounted () {
+  props: ['name', 'url'],
+  created () {
     axios
-        .get('https://pokeapi.co/api/v2/pokemon/'+this.id+'/')
+        .get(this.url)
         .then(response => {
-            this.name = response.data.name;
             this.urlImagen = response.data.sprites.front_default;
+            this.id = response.data.id;
+            this.height = response.data.height;
+            this.weight = response.data.weight;
+            this.speciesUrl = response.data.species.url;
+            this.types = response.data.types;
         })
         .catch(e => {
             this.errors.push(e);
-        })
+        });
   }
 };
 </script>

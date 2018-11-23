@@ -1,20 +1,32 @@
 <template>
   <div id="app">
-    Pokemon, tengo que atraparlos
-    <PokemonListItem v-bind:id="1"/> 
-    <PokemonListItem v-bind:id="2"/> 
-    <PokemonListItem v-bind:id="3"/> 
+    <button id="show-modal" @click="showModal = true">Show Modal</button>
+    <PokemonList/>
+    <PokemonDetailModal v-if="showModal" @close="showModal = false">
+      <!--
+        you can use custom content here to overwrite
+        default content
+      -->
+      <h3 slot="header">custom header</h3>
+    </PokemonDetailModal>
   </div>
 </template>
 
 <script>
 // Components
-import PokemonListItem from "./components/Pokemon-list-item";
+import PokemonList from "./components/Pokemon-list";
+import PokemonDetailModal from "./components/Pokemon-detail-modal";
 
 export default {
   name: "app",
+  data () {
+    return {
+      showModal: false
+    }
+  },
   components: {
-    PokemonListItem
+    PokemonList,
+    PokemonDetailModal
   }
 };
 </script>
