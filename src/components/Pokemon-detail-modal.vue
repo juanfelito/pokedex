@@ -4,23 +4,21 @@
       <div class="modal-wrapper">
         <div class="modal-container">
 
-          <div class="modal-header">
-            <slot name="header">
-              <img v-bind:src="pokemon.urlImagen" alt="">
-            </slot>
+          <div class="modal-header clearfix">
+            <img class="header__image" v-bind:src="pokemon.urlImagen" alt="">
+            <div v-if="description != undefined" class="header__description">{{description.flavor_text}}</div>
           </div>
 
           <div class="modal-body">
-            Height: {{pokemon.height}}
+            <PokemonPokedexStats v-bind:stats="this.pokemon.stats"/>
+            <PokemonAttributes v-bind:height="this.pokemon.height" v-bind:weight="this.pokemon.weight" v-bind:types="this.pokemon.types"/>
+            <PokemonEvolutionChain v-bind:evolutionChainUrl="evolutionChainUrl" v-if="evolutionChainUrl != ''"/>
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">
-              hola
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
+            <button class="modal-default-button" @click="$emit('close')">
+              OK
+            </button>
           </div>
         </div>
       </div>
@@ -30,19 +28,39 @@
 
 <script>
 import axios from "axios";
+import _ from "lodash";
+
+import PokemonAttributes from "./Pokemon-attributes";
+import PokemonPokedexStats from "./Pokemon-pokedex-stats";
+import PokemonEvolutionChain from "./Pokemon-evolution-chain";
 
 export default {
   data() {
     return {
-      errors: []
+      errors: [],
+      evolutionChainUrl: "",
+      descriptions: null
     };
   },
+  computed: {
+    description() {
+      return _.find(this.descriptions, function(description) {
+        return description.language.name == "en";
+      });
+    }
+  },
   props: ["pokemon"],
+  components: {
+    PokemonAttributes,
+    PokemonPokedexStats,
+    PokemonEvolutionChain
+  },
   created() {
     axios
       .get(this.pokemon.speciesUrl)
       .then(response => {
-        console.log(response.data);
+        this.descriptions = response.data.flavor_text_entries;
+        this.evolutionChainUrl = response.data.evolution_chain.url;
       })
       .catch(e => {
         this.errors.push(e);
@@ -52,6 +70,15 @@ export default {
 </script>
 
 <style lang="scss">
+.header__image {
+  width: 33%;
+  float: left;
+}
+.header__description {
+  width: 66%;
+  float: left;
+  text-align: left;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -70,7 +97,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 32%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

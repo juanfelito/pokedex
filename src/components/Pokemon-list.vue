@@ -1,7 +1,7 @@
 <template>
   <div id="pokemon-list">
     <div class="pokemon-list" v-if="pokemons.length > 0">
-      <pokemon-list-item v-for="n in 10" :key="n+1" v-bind:name="pokemons[n].name" v-bind:url="pokemons[n].url" v-on:update:pokemon="selectedPokemon = $event" v-on:showModal="showModal = true"/>    
+      <pokemon-list-item v-for="n in 450" :key="n+1" v-bind:name="pokemons[n].name" v-bind:url="pokemons[n].url" v-on:update:pokemon="selectedPokemon = $event" v-on:showModal="showModal = true"/>    
     </div>
     <PokemonDetailModal v-if="showModal" @close="showModal = false" v-bind:pokemon="selectedPokemon">
       <!--
@@ -25,7 +25,8 @@ export default {
     return {
       pokemons: [],
       showModal: false,
-      selectedPokemon: null
+      selectedPokemon: null,
+      errors: []
     };
   },
   created() {
@@ -46,4 +47,12 @@ export default {
 </script>
 
 <style lang="scss">
+.clearfix {
+  overflow: auto;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 </style>

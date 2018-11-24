@@ -3,7 +3,7 @@
     <div class="pokemon-list-item__sprite">
       <img v-bind:src="urlImagen" alt="">
     </div>
-    <div class="pokemon-list-item__name">{{name | iniciaConMayuscula}} #{{id}}</div>
+    <div class="pokemon-list-item__name">{{name | capitalize}} #{{id}}</div>
   </div>
 </template>
 
@@ -14,18 +14,14 @@ export default {
   data() {
     return {
       id: null,
-      urlImagen: '',
+      urlImagen: "",
       height: null,
       types: [],
       weight: null,
-      speciesUrl: '',
+      speciesUrl: "",
+      stats: null,
       errors: []
-    }
-  },
-  filters:{
-    iniciaConMayuscula: function(valor) {
-      return valor.charAt(0).toUpperCase() + valor.slice(1);
-    }
+    };
   },
   props: ["name", "url"],
   methods: {
@@ -36,8 +32,9 @@ export default {
         height: this.height,
         weight: this.weight,
         types: this.types,
+        stats: this.stats,
         speciesUrl: this.speciesUrl
-      }
+      };
       this.$emit("update:pokemon", pokemon);
       this.$emit("showModal");
     }
@@ -52,6 +49,7 @@ export default {
         this.weight = response.data.weight;
         this.speciesUrl = response.data.species.url;
         this.types = response.data.types;
+        this.stats = response.data.stats;
       })
       .catch(e => {
         this.errors.push(e);
@@ -66,7 +64,7 @@ export default {
   width: 150px;
   float: left;
   margin: 2px;
-  background: #eee;
+  background: #fff;
   cursor: pointer;
 }
 </style>
