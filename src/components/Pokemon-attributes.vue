@@ -51,16 +51,18 @@ export default {
 <style lang="scss">
 .attributes {
   list-style-type: none;
-  margin: 0;
+  margin: 1em 0;
   padding: 0;
   &__item {
     width: 50%;
-    float: left;
     text-align: left;
+    padding: 0.6em 0.625em;
+    float: left;
 
     &__name {
       color: #f74537;
       font-weight: 500;
+      font-size: 1em;
     }
   }
 }

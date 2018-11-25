@@ -3,9 +3,16 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
-          <div class="modal-header clearfix">
-            <img class="header__image" v-bind:src="pokemon.urlImagen" alt="">
+          <div class="modal__exit clearfix">
+            <div class="modal__exit__wrapper" @click="$emit('close')">
+              <div class="cross cross-1"></div>
+              <div class="cross cross-2"></div>
+            </div>
+          </div>
+          <div class="modal-header header clearfix">
+            <div class="header__image">
+              <img v-bind:src="pokemon.urlImagen" alt="">
+            </div>
             <div v-if="description != undefined" class="header__description">{{description.flavor_text}}</div>
           </div>
 
@@ -15,11 +22,11 @@
             <PokemonEvolutionChain v-bind:evolutionChainUrl="evolutionChainUrl" v-if="evolutionChainUrl != ''"/>
           </div>
 
-          <div class="modal-footer">
-            <button class="modal-default-button" @click="$emit('close')">
+          <!-- <div class="modal-footer">
+            <button class="modal-default-button" >
               OK
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -70,14 +77,54 @@ export default {
 </script>
 
 <style lang="scss">
-.header__image {
-  width: 33%;
-  float: left;
+.cross {
+  background: #ddd;
+  width: 100%;
+  height: 20%;
+  position: absolute;
+
+  &-1 {
+    bottom: 0;
+    left: 0.1em;
+    transform-origin: 0;
+    transform: rotate(-45deg) scaleX(1.12);
+  }
+  &-2 {
+    top: 0;
+    left: 0.1em;
+    transform-origin: 0;
+    transform: rotate(45deg) scaleX(1.12);
+  }
 }
-.header__description {
-  width: 66%;
-  float: left;
-  text-align: left;
+.modal__exit {
+  position: absolute;
+  top: 1em;
+  right: 0.8em;
+  &__wrapper {
+    &:hover .cross {
+      background: #ccc;
+    }
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    position: relative;
+  }
+}
+.header {
+  margin-bottom: 2em;
+  padding-bottom: 1px;
+  &__image {
+    width: 33%;
+    float: left;
+  }
+  &__description {
+    width: 66%;
+    float: left;
+    text-align: left;
+    font-family: "Roboto", sans-serif;
+    line-height: 100%;
+    padding-left: 0.2em;
+  }
 }
 .modal-mask {
   position: fixed;
@@ -97,22 +144,23 @@ export default {
 }
 
 .modal-container {
-  width: 32%;
+  width: 26em;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
+  position: relative;
 }
 
 .modal-header {
-  margin-top: 0;
+  margin-top: 2em;
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 0;
 }
 
 .modal-default-button {

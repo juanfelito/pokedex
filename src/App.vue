@@ -18,15 +18,18 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  
+  width: 99%;
+  margin: 0 auto;
 }
 html {
   background: #ededed;
+}
+* {
+  box-sizing: border-box;
 }
 </style>

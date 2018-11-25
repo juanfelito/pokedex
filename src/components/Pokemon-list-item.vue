@@ -1,9 +1,9 @@
 <template>
-  <div class="pokemon-list-item" @click="emitir">
+  <div class="pokemon-list-item" @click="emitir" v-observe-visibility="visibilityChanged">
     <div class="pokemon-list-item__sprite">
       <img v-bind:src="urlImagen" alt="">
     </div>
-    <div class="pokemon-list-item__name">{{name | capitalize}} #{{id}}</div>
+    <div v-if="name != undefined" class="pokemon-list-item__name clearfix">{{name | capitalize}} <span class="pokemon-list-item__number">#{{id}}</span></div>
   </div>
 </template>
 
@@ -13,17 +13,26 @@ import axios from "axios";
 export default {
   data() {
     return {
-      id: null,
       urlImagen: "",
       height: null,
       types: [],
       weight: null,
       speciesUrl: "",
       stats: null,
+      isVisible: false,
       errors: []
     };
   },
+  computed: {
+    id() {
+      const urlArr = this.url.split("/");
+      return urlArr[urlArr.length - 2];
+    }
+  },
   props: ["name", "url"],
+  updated() {
+    this.getInfo();
+  },
   methods: {
     emitir: function() {
       const pokemon = {
@@ -37,23 +46,28 @@ export default {
       };
       this.$emit("update:pokemon", pokemon);
       this.$emit("showModal");
+    },
+    getInfo() {
+      axios
+        .get(this.url)
+        .then(response => {
+          this.urlImagen = response.data.sprites.front_default;
+          this.height = response.data.height;
+          this.weight = response.data.weight;
+          this.speciesUrl = response.data.species.url;
+          this.types = response.data.types;
+          this.stats = response.data.stats;
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
+    },
+    visibilityChanged(isVisible, entry) {
+      this.isVisible = isVisible;
+      if (this.isVisible && this.height === null) {
+        this.getInfo();
+      }
     }
-  },
-  created() {
-    axios
-      .get(this.url)
-      .then(response => {
-        this.urlImagen = response.data.sprites.front_default;
-        this.id = response.data.id;
-        this.height = response.data.height;
-        this.weight = response.data.weight;
-        this.speciesUrl = response.data.species.url;
-        this.types = response.data.types;
-        this.stats = response.data.stats;
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
   }
 };
 </script>
@@ -61,10 +75,23 @@ export default {
 <style lang="scss">
 .pokemon-list-item {
   padding: 10px;
-  width: 150px;
+  width: 11.5%;
   float: left;
-  margin: 2px;
+  margin: 0.5%;
   background: #fff;
   cursor: pointer;
+  &__sprite {
+    margin: 0;
+    padding: 0;
+    height: 96px;
+  }
+  &__name {
+    text-align: left;
+    font-size: 0.9em;
+  }
+
+  &__number {
+    float: right;
+  }
 }
 </style>

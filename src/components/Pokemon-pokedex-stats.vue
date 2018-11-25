@@ -50,7 +50,8 @@ export default {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid #e0d9d3;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #f9f9f9;
   &__item {
     width: 25%;
     float: left;

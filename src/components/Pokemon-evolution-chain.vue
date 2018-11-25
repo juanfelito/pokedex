@@ -9,10 +9,14 @@
           <img :src="step.value" alt="">
         </template>
         <template v-else-if="typeof step.value == 'number'">
-          LVL<br><span class="evolutions__step__level">{{step.value}}</span>
+          <div class="evolutions__step__level">
+            LVL<br><span class="evolutions__step__level__value">{{step.value}}</span>
+          </div>
         </template>
         <template v-else>
-          LVL<br><span class="evolutions__step__level">--</span>
+          <div class="evolutions__step__level">
+            LVL<br><span class="evolutions__step__level__value">--</span>
+          </div>
         </template>
       </div>
     </div>
@@ -61,7 +65,9 @@ export default {
           axios
             .get(elem)
             .then(function(response) {
-              const defaultVariety = _.find(response.data.varieties, function(variety) {
+              const defaultVariety = _.find(response.data.varieties, function(
+                variety
+              ) {
                 return variety.is_default == true;
               });
 
@@ -107,19 +113,27 @@ export default {
   &__title {
     color: #fff;
     background: #f74537;
+    font-size: 1.2em;
+    font-weight: 500;
     display: block;
     text-align: left;
-    padding: 5px 10px;
+    padding: 0.1em 0.625em;
   }
   &__container {
-    width: 100%;
     text-align: center;
+    display: inline-block;
+    margin: 0 auto;
   }
   &__step {
     float: left;
     color: #f74537;
+    height: 100%;
+    position: relative;
     &__level {
-      font-size: 1.5em;
+      padding-top: 25px;
+      &__value {
+        font-size: 1.5em;
+      }
     }
   }
 }
