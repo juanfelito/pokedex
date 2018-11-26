@@ -75,9 +75,9 @@ export default {
 <style lang="scss">
 .pokemon-list-item {
   padding: 10px;
-  width: 11.5%;
+  width: 47%;
   float: left;
-  margin: 0.5%;
+  margin: 1.5%;
   background: #fff;
   cursor: pointer;
   &__sprite {
@@ -92,6 +92,30 @@ export default {
 
   &__number {
     float: right;
+  }
+}
+@media only screen and (min-width: 632px) {
+  .pokemon-list-item {
+    width: 23%;
+    margin: 1%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .pokemon-list-item {
+    width: 18%;
+    margin: 0.8%;
+  }
+}
+@media only screen and (min-width: 945px) {
+  .pokemon-list-item {
+    width: 15%;
+    margin: 0.8%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .pokemon-list-item {
+    width: 11.5%;
+    margin: 0.5%;
   }
 }
 </style>

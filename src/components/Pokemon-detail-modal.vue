@@ -114,13 +114,11 @@ export default {
   margin-bottom: 2em;
   padding-bottom: 1px;
   &__image {
-    width: 33%;
-    float: left;
+    display: block
   }
   &__description {
-    width: 66%;
-    float: left;
-    text-align: left;
+    display: block;
+    text-align: center;
     font-family: "Roboto", sans-serif;
     line-height: 100%;
     padding-left: 0.2em;
@@ -146,7 +144,7 @@ export default {
 .modal-container {
   width: 26em;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -179,5 +177,24 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+@media screen and (min-width: 600px){
+  .header {
+    margin-bottom: 1em;
+    &__image {
+      width: 33%;
+      float: left;
+    }
+    &__description {
+      width: 66%;
+      float: left;
+      text-align: left;
+      padding-left: 0;
+    }
+  }
+  .modal-container {
+    padding: 20px 30px;
+  }
 }
 </style>

@@ -53,7 +53,7 @@ export default {
   padding-bottom: 1em;
   border-bottom: 2px solid #f9f9f9;
   &__item {
-    width: 25%;
+    width: 50%;
     float: left;
     text-align: center;
 
@@ -64,4 +64,10 @@ export default {
     }
   }
 }
+@media screen and (min-width: 600px){
+  .indexes__item {
+    width: 25%;    
+  }
+}
+
 </style>

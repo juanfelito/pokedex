@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <PokemonList/>    
+    <div class="nav-bar">Vue Pokèdex</div>
+    <div class="container">
+      <PokemonList/>
+    </div>
   </div>
 </template>
 
@@ -23,11 +26,24 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 99%;
-  margin: 0 auto;
+}
+.container {
+  width: 98%;
+  margin: 0 auto;  
+}
+.nav-bar {
+  background: #f74537;
+  color: #fff;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 1em;
+  padding-left: 2em;
 }
 html {
   background: #ededed;
+}
+body {
+  margin: 0;
 }
 * {
   box-sizing: border-box;
